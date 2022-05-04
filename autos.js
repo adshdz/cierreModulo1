@@ -1,0 +1,30 @@
+var autos =[
+    {
+ marca:"Ford Fiesta",
+ modelo: 2019,
+ km:20,
+ precio: 150,
+ color: "Azul",
+ cuotas: 12,
+ anio: 2019,
+ patente: "APL123",
+ vendido: false,
+    },
+{
+ marca: "Toyota Corolla",
+ modelo: 2019,
+ precio: 100,
+ km: 0,
+ color: "Blanco",
+ cuotas: 14,
+ anio: 2019,
+ patente: "JJK116",
+ vendido: false,
+    },
+];
+
+module.exports = autos;
+
+
+
+
