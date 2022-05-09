@@ -6,60 +6,69 @@ const autos = require('./autos.js');
 var persona = {
     nombre:"juan",
     capacidadDePagoEnCuotas: 20000,
-    capacidadDePagoTotal: 1000
+    capacidadDePagoTotal: 10
 }
 
 let concesionaria = {
-  
-   autos: autos,
-   persona: persona,
-   buscarAuto: function(parm){
-    let encontrarAuto = autos.filter(function(e){
-        return e.patente == parm;
-            });
-        
-            return encontrarAuto == ![]?null:encontrarAuto;
-        },
-  
-   venderAuto: function(param){
-   return this.buscarAuto(param).vendido == true;
-      },
-      autosParaLaVenta: function(){
-      let autosDisponibles = autos.filter(function(element){
-         return element.vendido == false;
-      });
-      return autosDisponibles;
-      },
-      autosNuevos: function(){
-        return this.autosParaLaVenta().filter(function(element){
-         return element.km <= 100;
-      });
-       },
-       listaDeVentas : function(){
-           let listaPrecios = autos.map(function(elem){
+    autos: autos,
+    buscarAuto:  function(patente){
+       for (let i = 0; i < autos.length; i++){
+          if (autos[i].patente === patente){
+             return autos[i];
+          }
+          else if ((i + 1) == autos.length){
+             return null;
+          }
+       }
+    },
+    venderAuto: function(patente){
+       let auto = this.buscarAuto(patente)
+          if(auto != null){
+             auto.vendido=true;
+       }
+    },
+     autosParaLaVenta: function(autos){
+       let paLaVenta = this.autos.filter(function(autos){
+          return (autos.vendido === false);
+       })
+       return paLaVenta;
+    } ,
+ autosNuevos: function(autos){
+        let disponibles = this.autosParaLaVenta(autos);
+         let nuevos = disponibles.filter(function(autos){
+        return (autos.km<100);
+         })
+         return nuevos;
+     },
+     listaDeVentas : function(){
+       let vendidos = this.autos.filter(function(autos){
+         return (autos.vendido === true);});
+           let listaVentas = vendidos.map(function(elem){
                return elem.precio;
-           })
-       return listaPrecios;
-        },
-
-        totalDeVentas: function(){
-            return this.listaDeVentas().reduce(function(acum, elemento){
-                return acum + elemento;
-            })
-        },
-
-        puedeComprar: function(persona1, carro1){
-        return  persona1.capacidadDePagoTotal>= carro1.precio?true:false
-        },
-        autosQuePuedeComprar: function(){
-            let autosPosibilidaCompra =[]
-                let valorPagar = persona.capacidadDePagoTotal;
-                let nuevoArray2 = autos.filter(function(e){
-                    return e.precio <= valorPagar;
-                });
-        
-                return nuevoArray2;
-        },}
-
-
-console.log(concesionaria.autosQuePuedeComprar());
+                     });
+       return listaVentas;},
+       totalDeVentas:function(){
+    let ventasDetalle = this.listaDeVentas()
+    if (ventasDetalle.length !== 0) {ventas = this.listaDeVentas().reduce(function(acum,num){
+       return acum + num
+    })} else {
+       ventas = 0
+    }
+    return ventas
+     },
+     puedeComprar: function (auto, persona) {
+         if ((persona.capacidadDePagoTotal >= auto.precio) && (persona.capacidadDePagoEnCuotas >= (auto.precio/auto.cuotas))
+        ) {
+            return true
+            }  else {
+       return false
+    }
+       },
+ autosQuePuedeComprar: function (persona) {
+     let autosDisponibles = this.autosParaLaVenta() ;
+     let autosParaComprar = autosDisponibles.filter(function (autos) {
+         return (concesionaria.puedeComprar(autos, persona) === true )
+     })
+     return autosParaComprar
+ },
+ }

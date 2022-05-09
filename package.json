@@ -2,9 +2,9 @@
   "name": "cierre-de-modulo-1",
   "version": "1.0.0",
   "description": "",
-  "main": "autos.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node index.js"
   },
   "keywords": [],
   "author": "",

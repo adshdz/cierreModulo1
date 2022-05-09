@@ -2,7 +2,7 @@ var autos =[
     {
  marca:"Ford Fiesta",
  modelo: 2019,
- km:20,
+ km:200,
  precio: 150,
  color: "Azul",
  cuotas: 12,
@@ -26,5 +26,12 @@ var autos =[
 module.exports = autos;
 
 
+//ejercicios 
 
-
+/*buscarAuto: function(parm){
+    let encontrarAuto = autos.filter(function(e){
+        return e.patente == parm;
+            });
+        
+            return encontrarAuto == ![]?null:encontrarAuto;
+        },*/
